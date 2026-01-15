@@ -1,20 +1,22 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <swiper-container class="container" loop="true" slides-per-view="1">
+    @for (genre of genres; track $index) {
+    <swiper-slide class="slide">
+      <div class="card">
+        <img [src]="genre.image" [alt]="genre.title" />
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+        <div class="info">
+          <h2>{{ genre.title }}</h2>
+          <p>{{ genre.description }}</p>
+        </div>
+      </div>
+    </swiper-slide>
+    }
+  </swiper-container>
 </ion-content>
