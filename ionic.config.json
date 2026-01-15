@@ -1,0 +1,7 @@
+{
+  "name": "eco-beats",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
