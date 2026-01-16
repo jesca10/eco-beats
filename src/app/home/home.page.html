@@ -1,19 +1,23 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Home</ion-title>
+
+    <ion-button slot="end" fill="clear" (click)="cambiarTema()">
+      <ion-icon [name]="tema.icon" class="icon"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <swiper-container class="container" loop="true" slides-per-view="1">
+  <swiper-container class="container" loop="true" slides-per-view="1" [style.backgroundColor]="tema.bg">
     @for (genre of genres; track $index) {
     <swiper-slide class="slide">
       <div class="card">
         <img [src]="genre.image" [alt]="genre.title" />
 
         <div class="info">
-          <h2>{{ genre.title }}</h2>
-          <p>{{ genre.description }}</p>
+          <h2 [style.color]="tema.texto">{{ genre.title }}</h2>
+          <p [style.color]="tema.texto">{{ genre.description }}</p>
         </div>
       </div>
     </swiper-slide>

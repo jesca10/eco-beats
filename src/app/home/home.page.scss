@@ -1,6 +1,7 @@
 .container {
   height: 100%;
   width: 100%;
+  transition: background-color 0.5s ease;
 
   .slide {
     display: flex;
@@ -12,16 +13,15 @@
 .card {
   width: 85%;
   max-width: 360px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
   padding: 24px;
   text-align: center;
+
+  backdrop-filter: blur(14px);
+  border-radius: 20px;
+
   box-shadow:
     0 10px 30px rgba(0, 0, 0, 0.7),
     inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-
-  transition: transform .8s ease, box-shadow .8s ease;
 
   img {
     width: 100%;
@@ -33,16 +33,13 @@
     box-shadow:
       0 10px 25px rgba(79, 195, 247, 0.35);
 
-    transition: transform .8s ease;
+    transition: transform .8s ease, background 0.6s ease;
   }
 }
 
 .swiper-slide-active {
   .card {
     transform: scale(1.05);
-    box-shadow:
-      0 20px 45px rgba(0, 0, 0, 0.85),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 
   img {
@@ -55,8 +52,8 @@
     margin: 0 0 10px;
     font-size: 22px;
     font-weight: 700;
-    color: #4fc3f7;
     letter-spacing: 0.5px;
+    transition: color 0.5s ease;
   }
 
   p {
@@ -65,5 +62,11 @@
     line-height: 1.5;
     color: #e0e0e0;
     opacity: 0.85;
+    transition: color 0.5s ease;
   }
+}
+
+.icon {
+  color: var(--tema-claro-fondo);
+  transition: color 0.5s ease;
 }

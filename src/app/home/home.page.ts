@@ -1,17 +1,27 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular/standalone';
+import { IonicModule } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { StorageService } from '../services/storage-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [IonicModule, CommonModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomePage {
-  //* [Tarea]: Agregar información de mínimo 3 slides para mostrar en la vista. ✅
 
+  //* [Tarea]: Agregar información de mínimo 3 slides para mostrar en la vista. ✅
+  //* [Tarea]: Cambiar mediante el click de un boton el tema (color) de los slides. ✅
+
+  tema: any = {
+    modo: 'oscuro',
+    bg: 'var(--tema-oscuro-fondo)',
+    texto: 'var(--tema-oscuro-texto)',
+    icon: 'sunny-sharp'
+  }
   genres = [
     {
       title: '🎧 Hip-Hop',
@@ -30,5 +40,34 @@ export class HomePage {
     }
   ]
 
-  constructor() { }
+  constructor(private storageService: StorageService) { }
+
+  async ngOnInit() {
+    await this.loadStorageData();
+  }
+
+  async cambiarTema() {
+    const temaClaro = {
+      modo: 'claro',
+      bg: 'var(--tema-claro-fondo)',
+      texto: 'var(--tema-claro-texto)',
+      icon: 'moon-sharp'
+    };
+
+    const temaOscuro = {
+      modo: 'oscuro',
+      bg: 'var(--tema-oscuro-fondo)',
+      texto: 'var(--tema-oscuro-texto)',
+      icon: 'sunny-sharp'
+    };
+
+    this.tema = this.tema.modo === 'oscuro' ? temaClaro : temaOscuro;
+
+    await this.storageService.set('theme', this.tema);
+  }
+
+  async loadStorageData() {
+    const theme = await this.storageService.get("theme");
+    if (theme) this.tema = theme;
+  }
 }
