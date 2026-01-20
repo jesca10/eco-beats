@@ -1,10 +1,10 @@
 <ion-content [scrollY]="false" class="ion-padding" class="container">
-  <swiper-container #swiper effect="coverflow">
+  <swiper-container #swiper effect="coverflow" class="swiper-container">
     @for (slide of slides; track $index; let i = $index) {
-    <swiper-slide>
+    <swiper-slide class="swiper-slide">
       <img [src]="slide.image" [alt]="slide.title" class="slide-image ion-margin" />
       <h2>{{ slide.title }}</h2>
-      <p>{{ slide.description }}</p>
+      <p class="ion-padding-horizontal">{{ slide.description }}</p>
 
       <div
         [ngClass]="{ 'ion-justify-content-between' : i === 0, 'ion-justify-content-end': i > 0 && i < slides.length - 1 }"
@@ -18,7 +18,7 @@
         </ion-button>
         }
         @if(i === slides.length - 1){
-        <ion-button fill="clear" expand="block" (click)="start()" class="btn-start">
+        <ion-button fill="clear" shape="round" expand="full" (click)="start()" class="btn-start">
           EMPEZAR
         </ion-button>
         }

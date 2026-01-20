@@ -1,45 +1,66 @@
 .container {
-    --background: var(--tema-oscuro-fondo);
+    --background: var(--eco-oscuro);
+    min-height: 100vh;
 
-    .slide-image {
-        max-width: 77%;
-        height: auto;
-        margin: 2rem auto;
-        display: block;
-    }
+    .swiper-container {
+        height: 100%;
 
-    h2 {
-        font-size: 1.4rem;
-        font-weight: bold;
-        text-align: center;
-        color: var(--tema-oscuro-texto);
-    }
+        .swiper-slide {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
 
-    p {
-        font-size: 1rem;
-        text-align: center;
-        color: var(--tema-oscuro-texto-2);
-    }
+            .slide-image {
+                width: 70vw;
+                max-width: 400px;
+                height: auto;
+                display: block;
+                margin: 2rem auto;
+            }
 
-    .button-container {
-        display: flex;
+            h2 {
+                font-size: 1.4rem;
+                font-weight: bold;
+                text-align: center;
+                color: var(--eco-oscuro-texto-principal);
+            }
 
-        .btn-skip {
-            font-weight: bold;
-            color: var(--tema-oscuro-texto)
-        }
+            p {
+                font-size: 1rem;
+                text-align: center;
+                color: var(--eco-oscuro-texto-secundario);
+            }
 
-        .btn-next {
-            align-items: end;
-            color: var(--color-success)
-        }
+            .button-container {
+                display: flex;
 
-        .btn-start {
-            background-color: var(--color-success);
-            color: var(--tema-oscuro-fondo);
-            font-weight: bold;
-            border-radius: 90px;
-            width: 100%;
+                .btn-skip {
+                    font-weight: bold;
+                    color: var(--eco-oscuro-texto-principal)
+                }
+
+                .btn-next {
+                    font-weight: bold;
+                    color: var(--eco-primario);
+                }
+
+                .btn-next::part(native) {
+                    text-shadow:
+                        0 0 6px #00BFA666,
+                        0 0 12px #00BFA64D;
+                }
+
+
+                .btn-start {
+                    background-color: var(--eco-primario);
+                    color: var(--eco-oscuro);
+                    width: 100%;
+                    font-weight: 600;
+                    border-radius: 30px;
+                    height: 48px;
+                    box-shadow: 0 4px 12px #00BFA680;
+                }
+            }
         }
     }
 }

@@ -1,20 +1,33 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
 :root {
-    --color-claro: #f4cb89;
-    --color-oscuro: #fc7e00;
-    --espaciado-base: 1rem;
-    --espaciado-grande: 2rem;
+    // Paleta de Eco
+    --eco-primario: #00BFA6; // Principal: botones, acentos
+    --eco-neon: #7DF9FF; // Detalles brillantes, sliders
+    --eco-noche: #121212; // Fondo neutro oscuro
 
-    --color-success: #45B067;
+    // Tema Oscuro
+    --eco-oscuro: #0F1C2E; // Fondo oscuro principal
+    --eco-oscuro-texto-principal: #FFFFFF; // Texto claro sobre fondo oscuro
+    --eco-oscuro-texto-secundario: #A0A4AB; // Texto suave, descripciones
 
-    // Tema oscuro
-    --tema-oscuro-fondo: #1D1E25;
-    --tema-oscuro-texto: #ffffff;
-    --tema-oscuro-texto-2: #b3b3b3;
+    // Tema Claro
+    --eco-claro: #E0F7F4; // Fondo claro o tarjetas
+    --eco-claro-texto-principal: #000000; // Texto claro sobre fondo claro
+    --eco-claro-texto-secundario: #4F4F4F; // Texto suave, descripciones
 
-    // Tema claro
-    --tema-claro-fondo: #ffffff;
-    --tema-claro-texto: #000000;
-    --tema-claro-texto-2: #4f4f4f;
+    // Estados
+    --eco-success: #69F0AE;
+    --eco-danger: #FF5252;
+}
+
+@font-face {
+    font-family: "Poppins";
+    font-weight: normal;
+    font-style: normal;
+    src: url('../assets/fonts/Poppins-Regular.ttf');
+}
+
+* {
+    font-family: "Poppins";
 }

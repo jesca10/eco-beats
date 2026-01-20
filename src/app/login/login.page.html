@@ -1,0 +1,53 @@
+<ion-content [scrollY]="false" class="container ion-padding">
+  <div class="login-content">
+    <div class="login-logo">
+      <ion-icon name="person-circle-sharp"></ion-icon>
+      <h2>Bienvenido</h2>
+      <p>Ingresa tus credenciales para continuar</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser(loginForm.value)">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon slot="start" name="mail-sharp" class="input-icon"></ion-icon>
+          <ion-input type="email" placeholder="Correo electrónico" formControlName="email" fill="outline"></ion-input>
+        </ion-item>
+        <!-- * [Tarea]: Utilizar para darle estilos al mensaje ✅ -->
+        <div class="error-message">
+          @for (validation of validationMessages.email; track $index) {
+          @if(loginForm.get('email')?.hasError(validation.type) && loginForm.get('email')?.dirty){
+          <span>
+            {{ validation.message }}
+          </span>
+          }
+          }
+        </div>
+
+        <!-- * [Tarea]: Agregar mensajes de error en la validación de password ✅ -->
+        <ion-item>
+          <!-- * [Tarea]: Cambiar input a password ✅ -->
+          <ion-icon slot="start" name="lock-closed-sharp" class="input-icon"></ion-icon>
+          <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" formControlName="password"
+            fill="outline"></ion-input>
+          <ion-icon slot="end" [name]="showPassword ? 'eye-off-sharp' : 'eye-sharp'" class="toggle-password"
+            (click)="togglePassword()"></ion-icon>
+        </ion-item>
+
+        @for (validation of validationMessages.password; track $index) {
+        <div class="error-message">
+          @if(loginForm.get('password')?.hasError(validation.type) && loginForm.get('password')?.dirty){
+          <span>
+            {{ validation.message }}
+          </span>
+          }
+        </div>
+        }
+      </ion-list>
+
+      <ion-button expand="block" type="submit" [disabled]="!loginForm.valid">
+        <ion-icon name="log-in-sharp" slot="start"></ion-icon>
+        Iniciar Sesión
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

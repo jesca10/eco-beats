@@ -1,0 +1,83 @@
+//* [Tarea]: Darle estilos generales al login ✅
+.container {
+    --background: var(--eco-oscuro);
+
+    .login-content {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 20px;
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+
+            ion-icon {
+                font-size: 90px;
+                color: var(--eco-oscuro-texto-principal);
+            }
+
+            h2 {
+                margin-top: 10px;
+                font-weight: 700;
+                color: var(--eco-oscuro-texto-principal);
+            }
+
+            p {
+                font-size: 15px;
+                color: var(--eco-oscuro-texto-secundario);
+                margin-top: 5px;
+            }
+        }
+
+        form {
+            ion-list {
+                background: var(--eco-oscuro);
+            }
+
+            ion-item {
+                --background: transparent;
+                --border-radius: 14px;
+                --padding-start: 12px;
+                border: 1px solid var(--eco-oscuro-texto-secundario);
+                transition: border 0.3s ease;
+
+                &:focus-within {
+                    border-color: var(--eco-neon);
+                    box-shadow: 0 0 4px var(--eco-neon);
+                }
+            }
+
+            ion-input {
+                color: var(--eco-oscuro-texto-principal);
+            }
+
+            .input-icon,
+            .toggle-password {
+                color: var(--eco-oscuro-texto-secundario);
+            }
+
+            .toggle-password {
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+            .error-message {
+                color: var(--eco-danger);
+                font-size: 12px;
+                margin: 2px 12px 12px;
+            }
+
+            ion-button {
+                margin-top: 25px;
+                --background: var(--eco-success);
+                color: var(--eco-oscuro);
+                font-weight: 600;
+                border-radius: 30px;
+                height: 48px;
+                box-shadow: 0 4px 12px #00BFA680;
+            }
+        }
+    }
+}
