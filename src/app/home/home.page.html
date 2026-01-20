@@ -5,11 +5,16 @@
     <ion-button slot="end" fill="clear" (click)="cambiarTema()">
       <ion-icon [name]="tema.icon" class="icon"></ion-icon>
     </ion-button>
+
+    <ion-button slot="end" fill="clear" (click)="navigateTo()">
+      <ion-icon name="arrow-forward-outline" class="icon"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <swiper-container class="container" loop="true" slides-per-view="1" [style.backgroundColor]="tema.bg">
+  <swiper-container class="container" effect="coverflow" loop="true" slides-per-view="1"
+    [style.backgroundColor]="tema.bg">
     @for (genre of genres; track $index) {
     <swiper-slide class="slide">
       <div class="card">

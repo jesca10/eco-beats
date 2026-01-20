@@ -6,11 +6,15 @@
     --espaciado-base: 1rem;
     --espaciado-grande: 2rem;
 
-    // Tema Claro
+    --color-success: #45B067;
+
+    // Tema oscuro
+    --tema-oscuro-fondo: #1D1E25;
+    --tema-oscuro-texto: #ffffff;
+    --tema-oscuro-texto-2: #b3b3b3;
+
+    // Tema claro
     --tema-claro-fondo: #ffffff;
     --tema-claro-texto: #000000;
-
-    // Tema Oscuro
-    --tema-oscuro-fondo: #121212;
-    --tema-oscuro-texto: #ffffff;
+    --tema-claro-texto-2: #4f4f4f;
 }
