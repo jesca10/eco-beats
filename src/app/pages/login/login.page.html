@@ -1,7 +1,7 @@
 <ion-content [scrollY]="false" class="container ion-padding">
   <div class="login-content">
     <div class="login-logo">
-      <ion-icon name="person-circle-sharp"></ion-icon>
+      <img src="assets/icon/logo.png" alt="Eco Logo">
       <h2>Bienvenido</h2>
       <p>Ingresa tus credenciales para continuar</p>
     </div>
@@ -48,6 +48,15 @@
         <ion-icon name="log-in-sharp" slot="start"></ion-icon>
         Iniciar Sesión
       </ion-button>
+
+      <div class="redirect-text">
+        ¿No tienes cuenta?
+        <a (click)="navRegister()">Regístrate</a>
+      </div>
     </form>
   </div>
 </ion-content>
+
+<ion-toast [isOpen]="isToastOpen" [duration]="3000" [message]="message?.text" [icon]="message?.icon"
+  [buttons]="toastButtons" (didDismiss)="setOpen(false)" swipeGesture="vertical" [ngClass]="message?.type">
+</ion-toast>

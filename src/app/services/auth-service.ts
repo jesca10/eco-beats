@@ -19,4 +19,15 @@ export class AuthService {
       }
     });
   }
+
+  registerUser(userData: any) {
+    return new Promise((resolve, reject) => {
+      if (userData.name && userData.lastName && userData.email && userData.password) {
+        this.storageService.set('registeredUser', userData);
+        resolve('Registro Exitoso');
+      } else {
+        reject('Registro Fallido');
+      }
+    });
+  }
 }

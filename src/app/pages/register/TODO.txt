@@ -1,0 +1,13 @@
+Registro Usuarios
+  - Crear página de registro ✅
+  - Crear formulario reactivo (nombre, apellido, email, contraseña) ✅
+    - Validaciones ✅
+    - Mensajes de error ✅
+    - Hbailitar botón registrar solo cuando el formulario este correcto ✅
+  - Crear servicio que reciba los datos de Registro
+    - Si el servicio devuelve resolve, navegar hacia login y guardar los datos de registro en el storage ✅
+    - Si no que muestre el mensaje de error si el registro no fue exitoso ✅
+  - Botón para volver al login ✅
+
+Login
+  - Botón para navegar hacia la página de registro ✅

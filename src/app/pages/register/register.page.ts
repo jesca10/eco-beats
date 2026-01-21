@@ -1,21 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
-import { AuthService } from '../../services/auth-service';
+import { AuthService } from 'src/app/services/auth-service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
+  standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule]
 })
-export class LoginPage {
+export class RegisterPage {
 
-  // * [Tarea]: Crear un nuevo guard para validar si estoy logeado cuando entre al home, si no redireccionar al login ✅
-  message: any;
-  isToastOpen: boolean = false;
   showPassword: boolean = false;
+  isToastOpen: boolean = false;
+  message: any;
   toastButtons = [
     {
       icon: 'close-sharp',
@@ -25,9 +25,14 @@ export class LoginPage {
       }
     }
   ];
-  loginForm: FormGroup;
-  // * [Tarea]: Añadir los mensajes de validación para password ✅
+  registerForm: FormGroup;
   validationMessages: any = {
+    name: [
+      { type: 'required', message: 'El nombre es obligatorio.' }
+    ],
+    lastName: [
+      { type: 'required', message: 'El apellido es obligatorio.' }
+    ],
     email: [
       { type: 'required', message: 'El correo electrónico es obligatorio.' },
       { type: 'email', message: 'Correo electrónico inválido.' }
@@ -39,8 +44,18 @@ export class LoginPage {
     ]
   }
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private navCtrl: NavController) {
-    this.loginForm = this.formBuilder.group({
+  constructor(private formBuilder: FormBuilder, private navCtrl: NavController, private authService: AuthService) {
+    this.registerForm = this.formBuilder.group({
+      name: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])
+      ),
+      lastName: new FormControl('',
+        Validators.compose([
+          Validators.required
+        ])
+      ),
       email: new FormControl('',
         Validators.compose([
           Validators.required,
@@ -61,18 +76,22 @@ export class LoginPage {
     this.showPassword = !this.showPassword;
   }
 
-  navRegister() {
-    this.navCtrl.navigateForward('/register');
+  navLogin() {
+    this.navCtrl.navigateBack('/login');
   }
 
   setOpen(isOpen: boolean) {
     this.isToastOpen = isOpen;
   }
 
-  loginUser(credentials: any) {
-    this.authService.loginUser(credentials).then(res => {
-      this.navCtrl.navigateForward('/home');
-      this.loginForm.reset();
+  async registerUser(formData: any) {
+    this.authService.registerUser(formData).then((res: any) => {
+      this.message = { type: 'success', text: res, icon: 'checkbox-sharp' };
+      this.setOpen(true);
+      setTimeout(() => {
+        this.navCtrl.navigateBack('/login');
+        this.registerForm.reset();
+      }, 1000);
     }).catch(err => {
       this.message = { type: 'error', text: err, icon: 'close-circle-sharp' };
       this.setOpen(true);

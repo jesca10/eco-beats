@@ -1,0 +1,86 @@
+<ion-content [scrollY]="false" class="container ion-padding">
+  <div class="register-content">
+    <div class="register-logo">
+      <img src="assets/icon/logo.png" alt="Eco Logo">
+      <h2>Crear Cuenta</h2>
+      <p>Ingresa tus datos para registrarte</p>
+    </div>
+
+    <form [formGroup]="registerForm" (ngSubmit)="registerUser(registerForm.value)">
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon slot="start" name="person-sharp" class="input-icon"></ion-icon>
+          <ion-input type="text" placeholder="Nombre" formControlName="name" fill="outline"></ion-input>
+        </ion-item>
+        <div class="error-message">
+          @for(validation of validationMessages.name; track $index) {
+          @if(registerForm.get('name')?.hasError(validation.type) && registerForm.get('name')?.dirty) {
+          <span>
+            {{ validation.message }}
+          </span>
+          }
+          }
+        </div>
+
+        <ion-item>
+          <ion-icon slot="start" name="person-sharp" class="input-icon"></ion-icon>
+          <ion-input type="text" placeholder="Apellido" formControlName="lastName" fill="outline"></ion-input>
+        </ion-item>
+        <div class="error-message">
+          @for(validation of validationMessages.lastName; track $index) {
+          @if(registerForm.get('lastName')?.hasError(validation.type) && registerForm.get('lastName')?.dirty) {
+          <span>
+            {{ validation.message }}
+          </span>
+          }
+          }
+        </div>
+
+        <ion-item>
+          <ion-icon slot="start" name="mail-sharp" class="input-icon"></ion-icon>
+          <ion-input type="email" placeholder="Correo electrónico" formControlName="email" fill="outline"></ion-input>
+        </ion-item>
+        @for(validation of validationMessages.email; track $index) {
+        <div class="error-message">
+          @if(registerForm.get('email')?.hasError(validation.type) && registerForm.get('email')?.dirty) {
+          <span>
+            {{ validation.message }}
+          </span>
+          }
+        </div>
+        }
+
+        <ion-item>
+          <ion-icon slot="start" name="lock-closed-sharp" class="input-icon"></ion-icon>
+          <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" formControlName="password"
+            fill="outline"></ion-input>
+          <ion-icon slot="end" [name]="showPassword ? 'eye-off-sharp' : 'eye-sharp'" class="toggle-password"
+            (click)="togglePassword()"></ion-icon>
+        </ion-item>
+        @for(validation of validationMessages.password; track $index) {
+        <div class="error-message">
+          @if(registerForm.get('password')?.hasError(validation.type) && registerForm.get('password')?.dirty) {
+          <span>
+            {{ validation.message }}
+          </span>
+          }
+        </div>
+        }
+      </ion-list>
+
+      <ion-button fill="clear" expand="block" type="submit" [disabled]="!registerForm.valid">
+        <ion-icon name="person-add-sharp" slot="start"></ion-icon>
+        Registrarse
+      </ion-button>
+
+      <div class="register-redirect-text">
+        ¿Ya tienes una cuenta?
+        <a (click)="navLogin()">Iniciar sesión</a>
+      </div>
+    </form>
+  </div>
+</ion-content>
+
+<ion-toast [isOpen]="isToastOpen" [duration]="3000" [message]="message?.text" [icon]="message?.icon"
+  [buttons]="toastButtons" (didDismiss)="setOpen(false)" swipeGesture="vertical" [ngClass]="message?.type">
+</ion-toast>

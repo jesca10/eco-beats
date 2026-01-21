@@ -31,3 +31,24 @@
 * {
     font-family: "Poppins";
 }
+
+ion-toast {
+    font-size: 14px;
+    font-weight: 700;
+    --color: var(--eco-claro-texto-principal);
+    --box-shadow: 3px 3px 10px 0 #00000033;
+
+    &::part(button) {
+        border-left: 1px solid var(--eco-claro-texto-principal);
+        color: var(--eco-claro-texto-principal);
+        font-size: 15px;
+    }
+
+    &.success {
+        --background: var(--eco-success);
+    }
+
+    &.error {
+        --background: var(--eco-danger);
+    }
+}
