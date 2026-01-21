@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { StorageService } from '../services/storage-service';
+import { StorageService } from '../../services/storage-service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 

@@ -2,7 +2,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, OnInit, ViewChild } from
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { StorageService } from '../services/storage-service';
+import { StorageService } from '../../services/storage-service';
 
 @Component({
   selector: 'app-intro',

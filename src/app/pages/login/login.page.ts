@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, NavController } from '@ionic/angular';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-login',
@@ -11,10 +12,12 @@ import { IonicModule } from '@ionic/angular';
 })
 export class LoginPage {
 
-  showPassword = false;
+  // * [Tarea]: Crear un nuevo guard para validar si estoy logeado cuando entre al home, si no redireccionar al login ✅
+  showPassword: boolean = false;
+  errorMessage: string = '';
   loginForm: FormGroup;
   // * [Tarea]: Añadir los mensajes de validación para password ✅
-  validationMessages = {
+  validationMessages: any = {
     email: [
       { type: 'required', message: 'El correo electrónico es obligatorio.' },
       { type: 'email', message: 'Correo electrónico inválido.' }
@@ -26,7 +29,7 @@ export class LoginPage {
     ]
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private navCtrl: NavController) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('',
         Validators.compose([
@@ -49,6 +52,12 @@ export class LoginPage {
   }
 
   loginUser(credentials: any) {
-    console.log(credentials)
+    console.log(credentials);
+    this.authService.loginUser(credentials).then(res => {
+      this.errorMessage = '';
+      this.navCtrl.navigateForward('/home');
+    }).catch(err => {
+      this.errorMessage = err;
+    });
   }
 }
