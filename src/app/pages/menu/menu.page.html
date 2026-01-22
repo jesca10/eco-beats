@@ -1,0 +1,34 @@
+<ion-split-pane contentId="main-content">
+  <ion-menu contentId="main-content" side="end" type="push" class="menu">
+    <ion-header class="menu-header">
+      <ion-toolbar>
+        <ion-title class="menu-title">Menú</ion-title>
+
+        <ion-buttons slot="end">
+          <ion-menu-toggle>
+            <ion-button fill="clear">
+              <ion-icon name="close-sharp" size="large"></ion-icon>
+            </ion-button>
+          </ion-menu-toggle>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+
+    <ion-content class="menu-content" [scrollY]="false">
+      <ion-list class="menu-list">
+        <!-- * [Tarea]: Agregar cerrar sesión (redireccionar al login y borrar del storage que ya estoy logeado) ✅ -->
+        <ion-item lines="none" class="menu-item">Opción 1</ion-item>
+
+        <ion-item lines="none" class="menu-item">
+          <ion-button fill="clear" (click)="logout()" class="logout-button">
+            <ion-icon name="log-out-sharp" slot="start"></ion-icon>
+            Cerrar sesión
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+</ion-split-pane>

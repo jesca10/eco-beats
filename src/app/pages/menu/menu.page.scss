@@ -1,0 +1,57 @@
+.menu {
+    --background: var(--eco-oscuro);
+    color: var(--eco-oscuro-texto-principal);
+}
+
+.menu-header {
+    --background: var(--eco-noche);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    ion-title {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    ion-icon {
+        color: var(--eco-oscuro-texto-principal);
+    }
+}
+
+.menu-content {
+    --background: var(--eco-oscuro);
+}
+
+.menu-list {
+    background: var(--eco-oscuro);
+    padding-top: 8px;
+}
+
+.menu-item {
+    --background: var(--eco-oscuro);
+    color: var(--eco-oscuro-texto-principal);
+    font-weight: 500;
+    font-size: 1rem;
+    border-radius: 10px;
+    margin: 4px 4px;
+    transition: transform 0.15s ease;
+
+    ion-icon {
+        color: var(--eco-neon);
+        font-size: 1.2rem;
+    }
+
+    &:active {
+        transform: scale(0.97);
+    }
+}
+
+.logout-button {
+    color: var(--eco-danger);
+    font-weight: 600;
+    font-size: 0.95rem;
+
+    ion-icon {
+        color: var(--eco-danger);
+        margin-right: 6px;
+    }
+}

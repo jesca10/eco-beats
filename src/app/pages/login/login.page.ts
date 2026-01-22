@@ -71,7 +71,7 @@ export class LoginPage {
 
   loginUser(credentials: any) {
     this.authService.loginUser(credentials).then(res => {
-      this.navCtrl.navigateForward('/home');
+      this.navCtrl.navigateForward('/menu/home');
       this.loginForm.reset();
     }).catch(err => {
       this.message = { type: 'error', text: err, icon: 'close-circle-sharp' };

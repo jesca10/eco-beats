@@ -52,14 +52,14 @@ export class IntroPage {
   constructor(private router: Router, private storageService: StorageService) { }
 
   goBack() {
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/menu/home');
     //* [Tarea]: Al volver al home guardar en el storage que ya estuve en la pagina intro. ✅
     this.storageService.set('visitedIntro', true);
   }
 
   async start() {
     await this.storageService.set('visitedIntro', true);
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/menu/home');
   }
 
   next() {
