@@ -1,34 +1,80 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Inicio</ion-title>
-
-    <ion-button slot="end" fill="clear" (click)="cambiarTema()">
-      <ion-icon [name]="tema.icon" class="icon"></ion-icon>
-    </ion-button>
-
-    <ion-buttons slot="end">
-      <ion-menu-button class="icon"></ion-menu-button>
-    </ion-buttons>
-
-    <!-- <ion-button slot="end" fill="clear" (click)="navigateTo()">
-      <ion-icon name="arrow-forward-outline" class="icon"></ion-icon>
-    </ion-button> -->
+<ion-header class="header">
+  <ion-toolbar class="toolbar">
+    <ion-title slot="end">Inicio</ion-title>
+    <img src="assets/icon/logo.png" alt="Eco Logo" class="logo" />
   </ion-toolbar>
 </ion-header>
 
-<ion-content [scrollY]="false">
-  <swiper-container class="container" loop="true" slides-per-view="1" [style.backgroundColor]="tema.bg">
-    @for (genre of genres; track $index) {
-    <swiper-slide class="slide">
-      <div class="card">
-        <img [src]="genre.image" [alt]="genre.title" />
-
-        <div class="info">
-          <h2 [style.color]="tema.texto">{{ genre.title }}</h2>
-          <p [style.color]="tema.texto">{{ genre.description }}</p>
+<ion-content class="eco-bg">
+  <div class="section">
+    <h2>Canciones Populares</h2>
+    @defer (when !isLoadingTracks) {
+    <swiper-container slides-per-view="2.2" space-between="16" free-mode="true">
+      @for (track of tracks; track $index) {
+      <swiper-slide (click)="showTracksByAlbums(track)">
+        <div class="track-card">
+          @if(track.image) {
+          <img [src]="track.image" [alt]="track.name" (error)="$event.target.src='assets/icon/default-track.png'" />
+          }@else {
+          <img src="assets/icon/default-track.png" alt="Imagen por defecto" height="150px" />
+          }
+          <h3>{{ track.name }}</h3>
+          <p>{{ track.artist }}</p>
         </div>
-      </div>
-    </swiper-slide>
+      </swiper-slide>
+      }
+    </swiper-container>
+    }@placeholder {
+    <ion-spinner name="bubbles"></ion-spinner>
     }
-  </swiper-container>
+  </div>
+
+  <div class="section">
+    <h2>Álbumes y sencillos</h2>
+    @defer (when !isLoadingAlbums) {
+    <swiper-container slides-per-view="2.2" space-between="16" free-mode="true">
+      @for (album of albums; track $index) {
+      <swiper-slide (click)="showTracksByAlbums(album)">
+        <div class="album-card">
+          @if(album.image) {
+          <img [src]="album.image" alt="Portada álbum" />
+          }@else {
+          <img src="assets/icon/default-track.png" alt="Imagen por defecto" height="150px" />
+          }
+          <h3>{{ album.name }}</h3>
+          <p>{{ album.artist }}</p>
+        </div>
+      </swiper-slide>
+      }
+    </swiper-container>
+    }@placeholder {
+    <ion-spinner name="bubbles"></ion-spinner>
+    }
+  </div>
+
+  <!-- * [Tarea]: Mostrar un swiper o lista de los artistas del servidor y al hacer click muestre las canciones de ese artista. ✅ -->
+  <div class="section">
+    <h2>Artistas</h2>
+    @defer (when !isLoadingArtists) {
+    <swiper-container slides-per-view="2.2" space-between="16" free-mode="true">
+      @for (artist of artists; track $index) {
+      <swiper-slide (click)="showTracksByArtist(artist)">
+        <div class="artist-card">
+          <ion-avatar class="avatar">
+            @if(artist.image) {
+            <img [src]="artist.image" [alt]="artist.name"
+              (error)="$event.target.src='assets/icon/default-artist.png'" />
+            }@else{
+            <img src="assets/icon/default-artist.png" alt="Imagen por defecto" height="150px" />
+            }
+          </ion-avatar>
+          <h3>{{ artist.name }}</h3>
+        </div>
+      </swiper-slide>
+      }
+    </swiper-container>
+    }@placeholder {
+    <ion-spinner name="bubbles"></ion-spinner>
+    }
+  </div>
 </ion-content>

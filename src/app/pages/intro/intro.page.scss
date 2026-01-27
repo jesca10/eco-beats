@@ -1,5 +1,5 @@
 .container {
-    --background: var(--eco-oscuro);
+    --background: var(--eco-bg-app);
     min-height: 100vh;
 
     .swiper-container {
@@ -22,13 +22,13 @@
                 font-size: 1.4rem;
                 font-weight: bold;
                 text-align: center;
-                color: var(--eco-oscuro-texto-principal);
+                color: var(--eco-texto-principal);
             }
 
             p {
                 font-size: 1rem;
                 text-align: center;
-                color: var(--eco-oscuro-texto-secundario);
+                color: var(--eco-texto-secundario);
             }
 
             .button-container {
@@ -36,7 +36,7 @@
 
                 .btn-skip {
                     font-weight: bold;
-                    color: var(--eco-oscuro-texto-principal)
+                    color: var(--eco-texto-principal)
                 }
 
                 .btn-next {
@@ -46,19 +46,18 @@
 
                 .btn-next::part(native) {
                     text-shadow:
-                        0 0 6px #00BFA666,
-                        0 0 12px #00BFA64D;
+                        0 0 6px var(--eco-primario-glow-1),
+                        0 0 12px var(--eco-primario-glow-2);
                 }
-
 
                 .btn-start {
                     background-color: var(--eco-primario);
-                    color: var(--eco-oscuro);
+                    color: var(--eco-bg-app);
                     width: 100%;
                     font-weight: 600;
                     border-radius: 30px;
                     height: 48px;
-                    box-shadow: 0 4px 12px #00BFA680;
+                    box-shadow: 0 4px 12px var(--eco-primario-shadow);
                 }
             }
         }

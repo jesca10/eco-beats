@@ -1,57 +1,35 @@
-.menu {
-    --background: var(--eco-oscuro);
-    color: var(--eco-oscuro-texto-principal);
-}
+.tab-bar {
+    --background: var(--eco-bg-app);
+    --color: var(--eco-texto-secundario);
+    border-top: 1px solid var(--eco-bg-app);
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
 
-.menu-header {
-    --background: var(--eco-noche);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    ion-tab-button {
+        border-radius: 12px;
+        padding: 4px 10px;
+        transition: background 0.2s ease;
+        color: var(--eco-texto-secundario);
+        --ripple-color: transparent;
 
-    ion-title {
-        font-weight: 600;
-        letter-spacing: 0.5px;
-    }
 
-    ion-icon {
-        color: var(--eco-oscuro-texto-principal);
-    }
-}
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-.menu-content {
-    --background: var(--eco-oscuro);
-}
+        &.tab-selected {
+            background-color: #00BFA626;
+            color: var(--eco-neon);
+        }
 
-.menu-list {
-    background: var(--eco-oscuro);
-    padding-top: 8px;
-}
+        ion-icon {
+            font-size: 22px;
+        }
 
-.menu-item {
-    --background: var(--eco-oscuro);
-    color: var(--eco-oscuro-texto-principal);
-    font-weight: 500;
-    font-size: 1rem;
-    border-radius: 10px;
-    margin: 4px 4px;
-    transition: transform 0.15s ease;
-
-    ion-icon {
-        color: var(--eco-neon);
-        font-size: 1.2rem;
-    }
-
-    &:active {
-        transform: scale(0.97);
-    }
-}
-
-.logout-button {
-    color: var(--eco-danger);
-    font-weight: 600;
-    font-size: 0.95rem;
-
-    ion-icon {
-        color: var(--eco-danger);
-        margin-right: 6px;
+        ion-label {
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
     }
 }

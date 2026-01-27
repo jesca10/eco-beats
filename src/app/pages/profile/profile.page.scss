@@ -1,0 +1,79 @@
+.profile {
+    --background: var(--eco-bg-app);
+
+    .profile-header {
+        text-align: center;
+        padding: 2rem 1rem 1rem;
+
+        .avatar-wrapper {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 12px var(--eco-primario-shadow);
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        h2 {
+            margin-top: 1rem;
+            font-size: 1.4rem;
+            color: var(--eco-texto-principal);
+        }
+
+        p {
+            margin: 0.3rem 0;
+            font-size: 0.85rem;
+            color: var(--eco-texto-secundario);
+        }
+    }
+
+    .profile-stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 1.5rem 0;
+        padding: 0 1rem;
+
+        div {
+            text-align: center;
+
+            strong {
+                display: block;
+                font-size: 1.1rem;
+                color: var(--eco-neon);
+                text-shadow: 0 0 5px var(--eco-neon);
+            }
+
+            span {
+                font-size: 0.75rem;
+                color: var(--eco-texto-secundario);
+            }
+        }
+    }
+
+    .profile-options {
+        background: transparent;
+
+        ion-item {
+            --background: transparent;
+            --padding-start: 1rem;
+            --min-height: 50px;
+            --background-activated: var(--eco-neon);
+
+            ion-icon {
+                font-size: 1.5rem;
+                color: var(--eco-neon);
+            }
+
+            ion-label {
+                color: var(--eco-texto-principal);
+                font-weight: 500;
+            }
+        }
+    }
+}

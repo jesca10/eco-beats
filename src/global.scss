@@ -35,3 +35,45 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+@font-face {
+    font-family: "Poppins";
+    font-weight: normal;
+    font-style: normal;
+    src: url('./assets/fonts/Poppins-Regular.ttf');
+}
+
+* {
+    font-family: "Poppins";
+}
+
+ion-toast {
+    font-size: 14px;
+    font-weight: 700;
+    --color: var(--eco-texto-principal);
+    --box-shadow: 3px 3px 10px 0 #00000033;
+
+    &::part(button) {
+        border-left: 1px solid var(--eco-texto-principal);
+        color: var(--eco-texto-principal);
+        font-size: 15px;
+    }
+
+    &.success {
+        --background: var(--eco-success);
+    }
+
+    &.error {
+        --background: var(--eco-danger);
+    }
+}
+
+.theme-dialog {
+    --background: var(--eco-bg-app) !important;
+    --color: var(--eco-texto-principal);
+    --backdrop-opacity: 0.7 !important;
+
+    .alert-radio-label {
+        color: var(--eco-texto-principal) !important;
+    }
+}

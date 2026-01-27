@@ -1,0 +1,33 @@
+<ion-content class="profile" [fullscreen]="true">
+  <div class="profile-header">
+    <div class="avatar-wrapper">
+      <img [src]="user.avatar" alt="Avatar" />
+    </div>
+    <h2>{{ user.name }}</h2>
+    <p>{{ user.email }}</p>
+  </div>
+
+  <div class="profile-stats">
+    <div>
+      <strong>{{ user.stats.playlists }}</strong>
+      <span>Playlists</span>
+    </div>
+    <div>
+      <strong>{{ user.stats.likes }}</strong>
+      <span>Likes</span>
+    </div>
+    <div>
+      <strong>{{ user.stats.following }}</strong>
+      <span>Siguiendo</span>
+    </div>
+  </div>
+
+  <ion-list class="profile-options" lines="none">
+    @for (opt of options; track $index) {
+    <ion-item button="true" detailIcon="false" (click)="navigateTo(opt.action)">
+      <ion-icon [name]="opt.icon" slot="start"></ion-icon>
+      <ion-label>{{ opt.label }}</ion-label>
+    </ion-item>
+    }
+  </ion-list>
+</ion-content>

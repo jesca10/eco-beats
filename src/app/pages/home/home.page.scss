@@ -1,72 +1,110 @@
-.container {
-  height: 100%;
-  width: 100%;
-  transition: background-color 0.5s ease;
+.eco-bg {
+  --background: var(--eco-bg-app);
+  color: var(--eco-texto-principal);
+  padding-bottom: 5rem;
+}
 
-  .slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.header {
+  box-shadow: none;
+
+  .toolbar {
+    --background: var(--eco-bg-app);
+    padding: .5rem 1rem;
+    --border-width: 0;
+    --border-color: transparent;
+
+    .logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    ion-title {
+      padding: 0 1rem;
+      color: var(--eco-texto-principal);
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
   }
 }
 
-.card {
-  width: 85%;
-  max-width: 360px;
-  padding: 24px;
-  text-align: center;
+.section {
+  padding: .2rem 1rem;
 
-  backdrop-filter: blur(14px);
-  border-radius: 20px;
-
-  box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.7),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-
-  img {
-    width: 100%;
-    max-width: 260px;
-    margin: 0 auto 20px;
-    border-radius: 16px;
-    object-fit: cover;
-
-    box-shadow:
-      0 10px 25px rgba(79, 195, 247, 0.35);
-
-    transition: transform .8s ease, background 0.6s ease;
-  }
-}
-
-.swiper-slide-active {
-  .card {
-    transform: scale(1.05);
-  }
-
-  img {
-    transform: scale(1.05);
-  }
-}
-
-.info {
   h2 {
-    margin: 0 0 10px;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    transition: color 0.5s ease;
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+    color: var(--eco-texto-principal);
   }
 
-  p {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.5;
-    color: #e0e0e0;
-    opacity: 0.85;
-    transition: color 0.5s ease;
+  ion-spinner {
+    display: block;
+    margin: 2rem auto;
+    --color: var(--eco-texto-principal);
   }
-}
 
-.icon {
-  color: var(--eco-oscuro-texto-principal);
-  transition: color 0.5s ease;
+  swiper-container {
+    width: 100%;
+
+    swiper-slide {
+      display: flex;
+      justify-content: center;
+
+      .track-card,
+      .album-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        img {
+          width: 100%;
+          border-radius: 12px;
+          object-fit: cover;
+        }
+
+        h3 {
+          font-size: .9rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-bottom: .3rem;
+          width: 100%;
+        }
+
+        p {
+          font-size: .75rem;
+          color: var(--eco-texto-secundario);
+          margin-top: 0;
+          width: 100%;
+        }
+      }
+
+      .artist-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 120px;
+        text-align: center;
+
+        .avatar {
+          width: 150px;
+          height: 150px;
+          border-radius: 50%;
+          overflow: hidden;
+          margin-bottom: .5rem;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        h3 {
+          font-size: .85rem;
+          margin: 0;
+          color: var(--eco-texto-principal);
+        }
+      }
+    }
+  }
 }

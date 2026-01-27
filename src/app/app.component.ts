@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { register } from 'swiper/element/bundle';
+import { ThemeService } from './services/theme-service';
 
 register();
 
@@ -10,5 +11,12 @@ register();
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() { }
+
+  constructor(private themeService: ThemeService) {
+    this.initializeApp();
+  }
+
+  initializeApp() {
+    this.themeService.initTheme();
+  }
 }

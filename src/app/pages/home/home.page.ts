@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { StorageService } from '../../services/storage-service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { MusicService } from 'src/app/services/music-service';
+import { TracksModalPage } from '../tracks-modal/tracks-modal.page';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +19,13 @@ export class HomePage {
   //* [Tarea]: Agregar información de mínimo 3 slides para mostrar en la vista. ✅
   //* [Tarea]: Cambiar mediante el click de un boton el tema (color) de los slides. ✅
 
+  isLoadingTracks: boolean = false;
+  isLoadingAlbums: boolean = false;
+  isLoadingArtists: boolean = false;
   tema: any = {
     modo: 'oscuro',
-    bg: 'var(--eco-oscuro)',
-    texto: 'var(--eco-oscuro-texto-principal)',
+    bg: 'var(--eco-bg-app)',
+    texto: 'var(--eco-texto-principal)',
     icon: 'sunny-sharp'
   }
   genres = [
@@ -39,27 +44,83 @@ export class HomePage {
       image: 'https://media.vaticannews.va/media/content/dam-archive/vaticannews/multimedia/2019/11/15/02raper.jpg/_jcr_content/renditions/cq5dam.thumbnail.cropped.750.422.jpeg',
       description: 'Más que rimas rápidas, el rap es una forma poderosa de contar historias, compartir ideas y conectar con la realidad a través de la música.'
     }
-  ]
+  ];
+  localArtists: any[] = [];
+  tracks: any[] = [];
+  albums: any[] = [];
+  artists: any[] = [];
 
-  constructor(private storageService: StorageService, private router: Router) { }
+  constructor(private storageService: StorageService, private router: Router, private musicService: MusicService, private modalCtrl: ModalController) { }
 
   async ngOnInit() {
-    await this.loadStorageData();
     this.simularCargarDatos();
+    this.loadTracks();
+    this.loadAlbums();
+    this.loadArtists();
+    this.getLocalArtists();
+    await this.loadStorageData();
+  }
+
+  async loadTracks() {
+    this.isLoadingTracks = true;
+
+    this.musicService.getTracks().then(tracks => {
+      this.tracks = tracks;
+
+      this.tracks.forEach(track => {
+        this.musicService.getAlbumByArtist(track.artist_id).then(artist => {
+          track.artist = artist[0]?.name;
+          track.image = artist[0]?.image;
+        });
+      });
+
+      this.isLoadingTracks = false;
+    });
+  }
+
+  async loadAlbums() {
+    this.isLoadingAlbums = true;
+
+    this.musicService.getAlbums().then(albums => {
+      this.albums = albums;
+
+      this.albums.forEach(album => {
+        this.musicService.getArtist(album.artist_id).then(artist => {
+          album.artist = artist.name;
+        });
+      });
+
+      this.isLoadingAlbums = false;
+    });
+  }
+
+  // * [Tarea]: Crear servicio para obtener artistas desde el servicio API. ✅
+  async loadArtists() {
+    this.isLoadingArtists = true;
+
+    this.musicService.getArtists().then(artists => {
+      this.isLoadingArtists = false;
+      this.artists = artists;
+    });
+  }
+
+  getLocalArtists() {
+    this.localArtists = this.musicService.getLocalArtists().artists;
+    console.log('Artistas locales:', this.localArtists);
   }
 
   async cambiarTema() {
     const temaClaro = {
       modo: 'claro',
-      bg: 'var(--eco-claro)',
-      texto: 'var(--eco-claro-texto-principal)',
+      bg: 'var(--eco-bg-app)',
+      texto: 'var(--eco-texto-principal)',
       icon: 'moon-sharp'
     };
 
     const temaOscuro = {
       modo: 'oscuro',
-      bg: 'var(--eco-oscuro)',
-      texto: 'var(--eco-oscuro-texto-principal)',
+      bg: 'var(--eco-bg-app)',
+      texto: 'var(--eco-texto-principal)',
       icon: 'sunny-sharp'
     };
 
@@ -85,6 +146,50 @@ export class HomePage {
         // reject('Hubo un error al cargar los datos simulados');
       }, 6000);
     });
+  }
+
+  async showTracksByAlbums(album: any) {
+    console.log('Álbum seleccionado:', album);
+    const tracks = await this.musicService.getTracksByAlbum(album.id);
+    const artist = await this.musicService.getArtist(album.artist_id);
+
+    const modal = await this.modalCtrl.create({
+      component: TracksModalPage,
+      componentProps: {
+        info: {
+          tracks: tracks,
+          type: 'album',
+          name: album.name,
+          image: album.image,
+          artist: artist.name,
+          image_artist: artist.image,
+          release_date: album.release_date
+        }
+      }
+    });
+
+    modal.present();
+  }
+
+  // * [Tarea]: Crear un servicio para obtener las canciones de un artista. ✅
+  // * [Tarea]: Crear funcion para abrir la modal ya creada y enviar en los props las canciones del artista. ✅
+  async showTracksByArtist(artist: any) {
+    const tracks = await this.musicService.getTracksByArtist(artist.id);
+
+    const modal = await this.modalCtrl.create({
+      component: TracksModalPage,
+      componentProps: {
+        info: {
+          tracks: tracks,
+          type: 'artist',
+          name: artist.name,
+          image: artist.image,
+          popularity: artist.popularity
+        }
+      }
+    });
+
+    modal.present();
   }
 
   //* [Tarea]: Agregar función para navegar a la página intro. ✅

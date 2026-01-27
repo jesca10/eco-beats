@@ -9,11 +9,6 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'intro',
-    canActivate: [AuthGuard],
-    loadComponent: () => import('./pages/intro/intro.page').then(m => m.IntroPage)
-  },
-  {
     path: 'login',
     loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage)
   },
@@ -22,14 +17,31 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage)
   },
   {
-    path: 'menu',
+    path: 'intro',
+    canActivate: [AuthGuard],
+    loadComponent: () => import('./pages/intro/intro.page').then(m => m.IntroPage)
+  },
+  {
+    path: 'menu', canActivate: [AuthGuard, IntroGuard],
     loadComponent: () => import('./pages/menu/menu.page').then(m => m.MenuPage),
     children: [
       {
         path: 'home',
-        loadComponent: () => import('./pages/home/home.page').then((m) => m.HomePage),
-        canActivate: [AuthGuard, IntroGuard]
+        loadComponent: () => import('./pages/home/home.page').then((m) => m.HomePage)
+      },
+      {
+        path: 'profile',
+        loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage)
+      },
+      {
+        path: '',
+        redirectTo: '/menu/home',
+        pathMatch: 'full',
       },
     ]
+  },
+  {
+    path: 'tracks-modal',
+    loadComponent: () => import('./pages/tracks-modal/tracks-modal.page').then(m => m.TracksModalPage)
   }
 ];

@@ -1,6 +1,6 @@
 //* [Tarea]: Darle estilos generales al login ✅
 .container {
-    --background: var(--eco-oscuro);
+    --background: var(--eco-bg-app);
 
     .login-content {
         height: 100%;
@@ -20,26 +20,26 @@
             h2 {
                 margin-top: 10px;
                 font-weight: 700;
-                color: var(--eco-oscuro-texto-principal);
+                color: var(--eco-texto-principal);
             }
 
             p {
                 font-size: 15px;
-                color: var(--eco-oscuro-texto-secundario);
+                color: var(--eco-texto-secundario);
                 margin-top: 5px;
             }
         }
 
         form {
             ion-list {
-                background: var(--eco-oscuro);
+                background: var(--eco-bg-app);
             }
 
             ion-item {
                 --background: transparent;
                 --border-radius: 14px;
                 --padding-start: 12px;
-                border: 1px solid var(--eco-oscuro-texto-secundario);
+                border: 1px solid var(--eco-texto-secundario);
                 margin-bottom: 10px;
                 transition: border 0.3s ease;
 
@@ -50,12 +50,12 @@
             }
 
             ion-input {
-                color: var(--eco-oscuro-texto-principal);
+                color: var(--eco-texto-principal);
             }
 
             .input-icon,
             .toggle-password {
-                color: var(--eco-oscuro-texto-secundario);
+                color: var(--eco-texto-secundario);
             }
 
             .toggle-password {
@@ -72,18 +72,18 @@
             ion-button {
                 margin-top: 25px;
                 background: var(--eco-neon);
-                color: var(--eco-oscuro);
+                color: var(--eco-bg-app);
                 font-weight: 600;
                 border-radius: 30px;
                 height: 48px;
-                box-shadow: 0 4px 12px #7DF9FF80;
+                box-shadow: 0 4px 12px var(--eco-neon-shadow);
             }
 
             .redirect-text {
                 text-align: center;
                 margin-top: 16px;
                 font-size: 14px;
-                color: var(--eco-oscuro-texto-secundario);
+                color: var(--eco-texto-secundario);
 
                 a {
                     color: var(--eco-neon);
@@ -91,8 +91,8 @@
                     margin-left: 4px;
                     text-decoration: none;
                     text-shadow:
-                        0 0 6px #7DF9FF66,
-                        0 0 12px #7DF9FF4D;
+                        0 0 6px var(--eco-neon-glow-1),
+                        0 0 12px var(--eco-neon-glow-2);
                 }
             }
         }

@@ -1,54 +1,58 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 :root {
-    // Paleta de Eco
-    --eco-primario: #00BFA6; // Principal: botones, acentos
-    --eco-neon: #7DF9FF; // Detalles brillantes, sliders
-    --eco-noche: #121212; // Fondo neutro oscuro
-
-    // Tema Oscuro
-    --eco-oscuro: #0F1C2E; // Fondo oscuro principal
-    --eco-oscuro-texto-principal: #FFFFFF; // Texto claro sobre fondo oscuro
-    --eco-oscuro-texto-secundario: #A0A4AB; // Texto suave, descripciones
-
-    // Tema Claro
-    --eco-claro: #E0F7F4; // Fondo claro o tarjetas
-    --eco-claro-texto-principal: #000000; // Texto claro sobre fondo claro
-    --eco-claro-texto-secundario: #4F4F4F; // Texto suave, descripciones
-
-    // Estados
+    // Base Eco
+    --eco-noche: #121212;
     --eco-success: #69F0AE;
     --eco-danger: #FF5252;
+
+    // Oscuro
+    --eco-oscuro-bg: #0F1C2E;
+    --eco-oscuro-texto-principal: #FFFFFF;
+    --eco-oscuro-texto-secundario: #A0A4AB;
+    --eco-neon-dark: #7DF9FF;
+    --eco-primario-dark: #00BFA6;
+
+    // Claro
+    --eco-claro-bg: #F0F8FF;
+    --eco-claro-texto-principal: #0F1C2E;
+    --eco-claro-texto-secundario: #4B5A6A;
+    --eco-neon-light: #0097A7;
+    --eco-primario-light: #00695C;
 }
 
-@font-face {
-    font-family: "Poppins";
-    font-weight: normal;
-    font-style: normal;
-    src: url('../assets/fonts/Poppins-Regular.ttf');
+body.theme-dark {
+    // --ion-background-color: var(--eco-oscuro-bg);
+    --ion-text-color: var(--eco-oscuro-texto-principal);
+    --ion-color-primary: var(--eco-neon-dark);
+    --ion-text-color-secondary: var(--eco-oscuro-texto-secundario);
+    --eco-bg-app: var(--eco-oscuro-bg);
+    --eco-texto-principal: var(--eco-oscuro-texto-principal);
+    --eco-texto-secundario: var(--eco-oscuro-texto-secundario);
+    --eco-neon: var(--eco-neon-dark);
+    --eco-primario: var(--eco-primario-dark);
+    --eco-neon-shadow: #7DF9FF80;
+    --eco-primario-shadow: #00BFA680;
+    --eco-neon-glow-1: #7DF9FF66;
+    --eco-neon-glow-2: #7DF9FF4D;
+    --eco-primario-glow-1: #00BFA666;
+    --eco-primario-glow-2: #00BFA64D;
 }
 
-* {
-    font-family: "Poppins";
-}
-
-ion-toast {
-    font-size: 14px;
-    font-weight: 700;
-    --color: var(--eco-claro-texto-principal);
-    --box-shadow: 3px 3px 10px 0 #00000033;
-
-    &::part(button) {
-        border-left: 1px solid var(--eco-claro-texto-principal);
-        color: var(--eco-claro-texto-principal);
-        font-size: 15px;
-    }
-
-    &.success {
-        --background: var(--eco-success);
-    }
-
-    &.error {
-        --background: var(--eco-danger);
-    }
+body.theme-light {
+    // --ion-background-color: var(--eco-claro-bg);
+    --ion-text-color: var(--eco-claro-texto-principal);
+    --ion-color-primary: var(--eco-neon-light);
+    --ion-text-color-secondary: var(--eco-claro-texto-secundario);
+    --eco-bg-app: var(--eco-claro-bg);
+    --eco-texto-principal: var(--eco-claro-texto-principal);
+    --eco-texto-secundario: var(--eco-claro-texto-secundario);
+    --eco-neon: var(--eco-neon-light);
+    --eco-primario: var(--eco-primario-light);
+    --eco-neon-shadow: #0097A780;
+    --eco-primario-shadow: #00695C66;
+    --eco-neon-glow-1: #0097A766;
+    --eco-neon-glow-2: #0097A74D;
+    --eco-primario-glow-1: #00695C66;
+    --eco-primario-glow-2: #00695C4D;
 }
