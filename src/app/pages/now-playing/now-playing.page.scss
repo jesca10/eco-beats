@@ -1,0 +1,63 @@
+.now-playing-container {
+    position: fixed;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    margin: 0 12px;
+    border-radius: 16px;
+    padding: 8px 12px 0 12px;
+    background: var(--eco-bg-app);
+    box-shadow: 0 2px 12px var(--eco-neon-shadow);
+
+    ion-row {
+        align-items: center;
+        --ion-grid-padding: 0;
+        --ion-grid-column-padding: 0;
+    }
+
+    .track-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        object-fit: cover;
+    }
+
+    .track-info {
+        margin-bottom: 6px;
+
+        .title {
+            font-size: 14px;
+            color: var(--eco-texto-principal);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .artist {
+            font-size: 12px;
+            color: var(--eco-texto-secundario);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+    }
+
+    .controls {
+        ion-button {
+            --ripple-color: transparent;
+            margin-bottom: 6px;
+        }
+    }
+}
+
+.progress-bar {
+    border-radius: 999px;
+    margin-top: 2px;
+    --background: rgba(var(--ion-color-primary-rgb, 0, 84, 233), 0.3) !important;
+}
+
+ion-toast {
+    margin-bottom: 100px;
+}

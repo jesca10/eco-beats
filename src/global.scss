@@ -50,12 +50,13 @@
 ion-toast {
     font-size: 14px;
     font-weight: 700;
-    --color: var(--eco-texto-principal);
+    --color: var(--eco-noche);
     --box-shadow: 3px 3px 10px 0 #00000033;
 
     &::part(button) {
-        border-left: 1px solid var(--eco-texto-principal);
-        color: var(--eco-texto-principal);
+        border-radius: 0;
+        border-left: 1px solid var(--eco-noche);
+        color: var(--eco-noche);
         font-size: 15px;
     }
 

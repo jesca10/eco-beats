@@ -93,7 +93,7 @@ export class RegisterPage {
         this.registerForm.reset();
       }, 1000);
     }).catch(err => {
-      this.message = { type: 'error', text: err, icon: 'close-circle-sharp' };
+      this.message = { type: 'error', text: err, icon: 'alert-circle-sharp' };
       this.setOpen(true);
     });
   }

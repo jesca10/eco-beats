@@ -12,7 +12,7 @@ export class ThemeService {
 
   async initTheme() {
     const saved = await this.storageService.get(this.themeKey);
-    const theme = saved || 'system';
+    const theme = saved || 'dark';
     this.currentTheme = theme;
     this.applyTheme(theme);
   }

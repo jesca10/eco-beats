@@ -10,7 +10,7 @@
       <ion-list lines="none">
         <ion-item>
           <ion-icon slot="start" name="mail-sharp" class="input-icon"></ion-icon>
-          <ion-input type="email" placeholder="Correo electrónico" formControlName="email" fill="outline"></ion-input>
+          <ion-input type="email" placeholder="Correo electrónico" formControlName="email"></ion-input>
         </ion-item>
         <!-- * [Tarea]: Utilizar para darle estilos al mensaje ✅ -->
         <div class="error-message">
@@ -27,8 +27,8 @@
         <ion-item>
           <!-- * [Tarea]: Cambiar input a password ✅ -->
           <ion-icon slot="start" name="lock-closed-sharp" class="input-icon"></ion-icon>
-          <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" formControlName="password"
-            fill="outline"></ion-input>
+          <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña"
+            formControlName="password"></ion-input>
           <ion-icon slot="end" [name]="showPassword ? 'eye-off-sharp' : 'eye-sharp'" class="toggle-password"
             (click)="togglePassword()"></ion-icon>
         </ion-item>

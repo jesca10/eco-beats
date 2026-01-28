@@ -1,0 +1,37 @@
+@if (currentTrack$ | async; as track) {
+<ng-container>
+  <ion-grid class="now-playing-container" (click)="openPlayerModal()">
+    <ion-row>
+      <ion-col size="2">
+        @if (track.image) {
+        <img [src]="track.image" class="track-image" (error)="$event.target.src='assets/icon/default-track.png'" />
+        }@else {
+        <img src="assets/icon/default-track.png" alt="Imagen por defecto" class="track-image" />
+        }
+      </ion-col>
+      <ion-col size="8" class="track-info">
+        <div class="title">{{ track.name }}</div>
+        <div class="artist">{{ track.artist }}</div>
+      </ion-col>
+      <!-- * [Tarea]: Dar funcionalidad a favorito y quitar favorito.  -->
+      <ion-col size="1" class="controls">
+        <ion-button fill="clear" size="small" (click)="toggleFavorite($event, track)">
+          <ion-icon [name]="isFavorite(track) ? 'heart-sharp' : 'heart-outline'" slot="icon-only">
+          </ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col size="1" class="controls">
+        <ion-button fill="clear" size="small" (click)="togglePlayPause($event)">
+          <ion-icon [name]="(isPlaying$ | async) ? 'pause' : 'play'" slot="icon-only">
+          </ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-progress-bar [value]="progress$ | async" class="progress-bar"></ion-progress-bar>
+  </ion-grid>
+</ng-container>
+}
+
+<ion-toast [isOpen]="isToastOpen" [duration]="3000" [message]="message?.text" [icon]="message?.icon"
+  [buttons]="toastButtons" (didDismiss)="setOpen(false)" swipeGesture="vertical" [ngClass]="message?.type">
+</ion-toast>

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MusicService } from 'src/app/services/music-service';
 import { TracksModalPage } from '../tracks-modal/tracks-modal.page';
+import { NowPlayingService } from 'src/app/services/now-playing-service';
 
 @Component({
   selector: 'app-home',
@@ -50,7 +51,13 @@ export class HomePage {
   albums: any[] = [];
   artists: any[] = [];
 
-  constructor(private storageService: StorageService, private router: Router, private musicService: MusicService, private modalCtrl: ModalController) { }
+  constructor(
+    private storageService: StorageService,
+    private router: Router,
+    private musicService: MusicService,
+    private modalCtrl: ModalController,
+    private nowPlayingService: NowPlayingService
+  ) { }
 
   async ngOnInit() {
     this.simularCargarDatos();
@@ -58,6 +65,7 @@ export class HomePage {
     this.loadAlbums();
     this.loadArtists();
     this.getLocalArtists();
+    await this.nowPlayingService.initialize();
     await this.loadStorageData();
   }
 
@@ -149,7 +157,6 @@ export class HomePage {
   }
 
   async showTracksByAlbums(album: any) {
-    console.log('Álbum seleccionado:', album);
     const tracks = await this.musicService.getTracksByAlbum(album.id);
     const artist = await this.musicService.getArtist(album.artist_id);
 
@@ -168,6 +175,16 @@ export class HomePage {
       }
     });
 
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        const selectedTrack = result.data;
+        selectedTrack.image = album.image;
+        selectedTrack.artist = artist.name;
+
+        this.nowPlayingService.setTrack(selectedTrack);
+      }
+    });
+
     modal.present();
   }
 
@@ -175,6 +192,7 @@ export class HomePage {
   // * [Tarea]: Crear funcion para abrir la modal ya creada y enviar en los props las canciones del artista. ✅
   async showTracksByArtist(artist: any) {
     const tracks = await this.musicService.getTracksByArtist(artist.id);
+    const album = await this.musicService.getAlbumByArtist(artist.id);
 
     const modal = await this.modalCtrl.create({
       component: TracksModalPage,
@@ -184,8 +202,19 @@ export class HomePage {
           type: 'artist',
           name: artist.name,
           image: artist.image,
-          popularity: artist.popularity
+          popularity: artist.popularity,
+          followers: artist.followers
         }
+      }
+    });
+
+    modal.onDidDismiss().then((result) => {
+      if (result.data) {
+        const selectedTrack = result.data;
+        selectedTrack.image = album[0]?.image;
+        selectedTrack.artist = artist.name;
+
+        this.nowPlayingService.setTrack(selectedTrack);
       }
     });
 

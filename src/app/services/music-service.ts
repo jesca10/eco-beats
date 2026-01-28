@@ -51,6 +51,38 @@ export class MusicService {
     );
   }
 
+  async getFavoriteTracks() {
+    return fetch(`${this.urlServer}/favorite_tracks`).then(
+      response => response.json()
+    );
+  }
+
+  async getFavTracksByUser(userId: string) {
+    return fetch(`${this.urlServer}/user_favorites/${userId}`).then(
+      response => response.json()
+    );
+  }
+
+  async addFavoriteTracks(params: object) {
+    return fetch(`${this.urlServer}/favorite_tracks`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(params)
+    }).then(
+      response => response.json()
+    );
+  }
+
+  async deleteFavoriteTracks(favoriteId: string) {
+    return fetch(`${this.urlServer}/favorite_tracks/${favoriteId}`, {
+      method: 'DELETE'
+    }).then(
+      response => response
+    );
+  }
+
   getLocalArtists() {
     return dataArtists;
   }

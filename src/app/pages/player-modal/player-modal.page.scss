@@ -1,0 +1,68 @@
+.player-content {
+    position: relative;
+    --background: transparent;
+
+    .background-blur {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        filter: blur(40px) brightness(0.5);
+        z-index: 0;
+    }
+
+    .player-container {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        text-align: center;
+        color: var(--eco-texto-principal);
+
+        .cover img {
+            width: 80%;
+            max-width: 300px;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px #00000080;
+            margin-bottom: 1.5rem;
+        }
+
+        .info {
+            margin-bottom: 1.5rem;
+
+            h2 {
+                font-size: 1.5rem;
+                margin: 0.5rem 0;
+            }
+
+            p {
+                font-size: 1rem;
+                opacity: 0.8;
+            }
+        }
+
+        ion-range {
+            width: 100%;
+            --bar-background: var(--eco-bg-app);
+            --bar-background-active: var(--eco-bg-app);
+            --knob-background: var(--eco-bg-app);
+            margin-bottom: 2rem;
+        }
+
+        .controls ion-button {
+            --color: white;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            --color: white;
+        }
+    }
+}

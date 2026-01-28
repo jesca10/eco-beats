@@ -10,7 +10,7 @@
       <ion-list lines="none">
         <ion-item>
           <ion-icon slot="start" name="person-sharp" class="input-icon"></ion-icon>
-          <ion-input type="text" placeholder="Nombre" formControlName="name" fill="outline"></ion-input>
+          <ion-input type="text" placeholder="Nombre" formControlName="name"></ion-input>
         </ion-item>
         <div class="error-message">
           @for(validation of validationMessages.name; track $index) {
@@ -24,7 +24,7 @@
 
         <ion-item>
           <ion-icon slot="start" name="person-sharp" class="input-icon"></ion-icon>
-          <ion-input type="text" placeholder="Apellido" formControlName="lastName" fill="outline"></ion-input>
+          <ion-input type="text" placeholder="Apellido" formControlName="lastName"></ion-input>
         </ion-item>
         <div class="error-message">
           @for(validation of validationMessages.lastName; track $index) {
@@ -38,7 +38,7 @@
 
         <ion-item>
           <ion-icon slot="start" name="mail-sharp" class="input-icon"></ion-icon>
-          <ion-input type="email" placeholder="Correo electrónico" formControlName="email" fill="outline"></ion-input>
+          <ion-input type="email" placeholder="Correo electrónico" formControlName="email"></ion-input>
         </ion-item>
         @for(validation of validationMessages.email; track $index) {
         <div class="error-message">
@@ -52,8 +52,8 @@
 
         <ion-item>
           <ion-icon slot="start" name="lock-closed-sharp" class="input-icon"></ion-icon>
-          <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña" formControlName="password"
-            fill="outline"></ion-input>
+          <ion-input [type]="showPassword ? 'text' : 'password'" placeholder="Contraseña"
+            formControlName="password"></ion-input>
           <ion-icon slot="end" [name]="showPassword ? 'eye-off-sharp' : 'eye-sharp'" class="toggle-password"
             (click)="togglePassword()"></ion-icon>
         </ion-item>

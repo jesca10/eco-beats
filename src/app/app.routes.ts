@@ -43,5 +43,13 @@ export const routes: Routes = [
   {
     path: 'tracks-modal',
     loadComponent: () => import('./pages/tracks-modal/tracks-modal.page').then(m => m.TracksModalPage)
+  },
+  {
+    path: 'now-playing',
+    loadComponent: () => import('./pages/now-playing/now-playing.page').then(m => m.NowPlayingPage)
+  },
+  {
+    path: 'player-modal',
+    loadComponent: () => import('./pages/player-modal/player-modal.page').then(m => m.PlayerModalPage)
   }
 ];

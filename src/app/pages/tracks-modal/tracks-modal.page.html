@@ -1,59 +1,71 @@
-<ion-header class="modal-header">
-  <ion-toolbar class="modal-toolbar">
-    <ion-title>{{ info.name }}</ion-title>
+<div class="background-blur"></div>
 
+<ion-content class="ion-padding-horizontal ion-padding-bottom gradient-content" (ionScroll)="onScroll($event)"
+  scrollEvents="true">
+  <ion-toolbar class="modal-toolbar" [class.scrolled]="scrolled">
     <ion-buttons slot="start">
       <ion-button (click)="close()">
         <ion-icon name="arrow-back-sharp"></ion-icon>
       </ion-button>
     </ion-buttons>
+
+    <ion-title [style.opacity]="titleOpacity">{{ info.name }}</ion-title>
   </ion-toolbar>
-</ion-header>
 
-<ion-content class="ion-padding gradient-content">
-  <div class="header-content">
-    @if (info.image) {
-    <img [src]="info.image" [alt]="info.name" class="main-image"
-      (error)="info.type === 'album' ? $event.target.src='assets/icon/default-track.png' : $event.target.src='assets/icon/default-artist.png'" />
-    }@else{
-    @if(info.type === 'album'){
-    <img src="assets/icon/default-track.png" alt="Imagen por defecto" class="main-image" height="150px" />
-    }@else {
-    <img src="assets/icon/default-artist.png" alt="Imagen por defecto" class="main-image" height="150px" />
-    }
-    }
+  @if (info.image) {
+  <img [src]="info.image" [alt]="info.name" class="main-image" [style.width]="imageWidth"
+    [style.opacity]="imgNameOpacity"
+    (error)="info.type === 'album' ? $event.target.src='assets/icon/default-track.png' : $event.target.src='assets/icon/default-artist.png'" />
+  }@else{
+  @if(info.type === 'album'){
+  <img src="assets/icon/default-track.png" alt="Imagen por defecto" class="main-image" height="150px"
+    [style.width]="imageWidth" [style.opacity]="imgNameOpacity" />
+  }@else {
+  <img src="assets/icon/default-artist.png" alt="Imagen por defecto" class="main-image" height="150px"
+    [style.width]="imageWidth" [style.opacity]="imgNameOpacity" />
+  }
+  }
 
-    <h2>{{ info.name }}</h2>
+  <h2>{{ info.name }}</h2>
 
-    <div class="info-meta">
-      @if(info.type === 'album') {
-      <div class="album-meta">
-        <ion-avatar slot="start">
-          @if(info.image_artist){
-          <img [src]="info.image_artist" alt="Artista" (error)="$event.target.src='assets/icon/default-artist.png'" />
-          }@else {
-          <img [src]="info.image_artist" alt="Artista" />
-          }
-        </ion-avatar>
+  @if(info.type === 'album') {
+  <div class="info-meta">
+    <div class="album-meta">
+      <ion-avatar slot="start">
+        @if(info.image_artist){
+        <img [src]="info.image_artist" alt="Artista" (error)="$event.target.src='assets/icon/default-artist.png'" />
+        }@else {
+        <img [src]="info.image_artist" alt="Artista" />
+        }
+      </ion-avatar>
 
-        <div>
-          <p class="artista-nombre">{{ info.artist }}</p>
-        </div>
+      <div>
+        <p class="artista-nombre">{{ info.artist }}</p>
       </div>
-
-      <p class="info-extra">Álbum <strong>·</strong> {{ info.release_date | date: 'dd MMM y' }}</p>
-      }
     </div>
+
+    <p class="info-extra">Álbum <strong>·</strong> {{ info.release_date | date: 'dd MMM y' }}</p>
   </div>
+  }
+
+  @if (info.type === 'artist') {
+  <div class="info-meta">
+    <p class="info-extra">
+      {{ info.followers }}M Seguidores
+      <strong>·</strong>
+      {{ info.popularity }}M popularidad
+    </p>
+  </div>
+  }
 
   <ion-list class="tracks" lines="none">
     @for (track of info.tracks; track $index) {
-    <ion-item>
+    <ion-item (click)="selectTrack(track)">
       <ion-label>
         <h3>{{ track.name }}</h3>
         <p>{{ info.artist }}</p>
       </ion-label>
-      <ion-button fill="clear" slot="end">
+      <ion-button fill="clear" slot="end" (click)="$event.stopPropagation()">
         <ion-icon name="ellipsis-vertical"></ion-icon>
       </ion-button>
     </ion-item>

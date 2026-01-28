@@ -1,0 +1,28 @@
+<ion-content class="player-content">
+  <ng-container *ngIf="currentTrack$ | async as track">
+    <div class="background-blur" [style.background-image]="'url(' + track?.image + ')'"></div>
+
+    <div class="player-container">
+      <div class="cover">
+        <img [src]="track?.image" alt="Album cover" />
+      </div>
+
+      <div class="info">
+        <h2>{{ track?.name }}</h2>
+        <p>{{ track?.artist }}</p>
+      </div>
+
+      <ion-range [value]="progress$ | async" (ionChange)="seek($event)"></ion-range>
+
+      <div class="controls">
+        <ion-button fill="clear" size="large" (click)="togglePlayPause()">
+          <ion-icon [name]="(isPlaying$ | async) ? 'pause-circle' : 'play-circle'" size="large"></ion-icon>
+        </ion-button>
+      </div>
+
+      <ion-button class="close-button" fill="clear" (click)="dismiss()">
+        <ion-icon name="chevron-down-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </ng-container>
+</ion-content>
