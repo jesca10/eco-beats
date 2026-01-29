@@ -1,28 +1,63 @@
-<ion-content class="player-content">
-  <ng-container *ngIf="currentTrack$ | async as track">
-    <div class="background-blur" [style.background-image]="'url(' + track?.image + ')'"></div>
+<ion-content class="player-content" fullscreen>
+  @if (currentTrack$ | async; as track) {
+  <ng-container>
+    <ion-toolbar class="toolbar">
+      <ion-buttons slot="start">
+        <ion-button fill="clear" (click)="dismiss()">
+          <ion-icon name="chevron-down-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-title class="title">
+        <div class="subtitle">ESCUCHANDO DE PLAYLIST</div>
+        <div class="playlist-name">{{ track.name }}</div>
+      </ion-title>
+    </ion-toolbar>
+
+    <div class="background-blur"
+      [style.background-image]="'url(' + (track?.image || 'assets/imgs/default-track.png') + ')'"></div>
 
     <div class="player-container">
       <div class="cover">
-        <img [src]="track?.image" alt="Album cover" />
+        <img [src]="track?.image || 'assets/imgs/default-track.png'" alt="Album cover" />
       </div>
 
       <div class="info">
-        <h2>{{ track?.name }}</h2>
-        <p>{{ track?.artist }}</p>
+        <div class="text">
+          <h2 class="track-title">{{ track.name }}</h2>
+          <p class="track-artist">{{ track.artist }}</p>
+        </div>
+
+        <ion-icon [name]="isFavorite(track) ? 'heart-sharp' : 'heart-outline'" class="status-icon"
+          (click)="toggleFavorite(track)">
+        </ion-icon>
       </div>
 
-      <ion-range [value]="progress$ | async" (ionChange)="seek($event)"></ion-range>
+      <div class="progress">
+        <div class="time">
+          <span>{{ currentTime$ | async }}</span>
+          <span>{{ duration$ | async }}</span>
+        </div>
+
+        <ion-range [value]="progress$ | async" (ionChange)="seek($event)"></ion-range>
+      </div>
 
       <div class="controls">
-        <ion-button fill="clear" size="large" (click)="togglePlayPause()">
-          <ion-icon [name]="(isPlaying$ | async) ? 'pause-circle' : 'play-circle'" size="large"></ion-icon>
-        </ion-button>
-      </div>
+        <ion-icon name="shuffle-outline"></ion-icon>
+        <!-- <ion-icon name="play-skip-back-outline" (click)="nowPlayingService.prev()"></ion-icon> -->
 
-      <ion-button class="close-button" fill="clear" (click)="dismiss()">
-        <ion-icon name="chevron-down-outline"></ion-icon>
-      </ion-button>
+        <ion-button fill="clear" class="play-button" (click)="togglePlayPause()">
+          <ion-icon [name]="(isPlaying$ | async) ? 'pause-circle' : 'play-circle'"></ion-icon>
+        </ion-button>
+
+        <!-- <ion-icon name="play-skip-forward-outline" (click)="nowPlayingService.next()"></ion-icon> -->
+        <ion-icon name="repeat-outline"></ion-icon>
+      </div>
     </div>
   </ng-container>
+  }
 </ion-content>
+
+<ion-toast [isOpen]="isToastOpen" [duration]="3000" [message]="message?.text" [icon]="message?.icon"
+  [buttons]="toastButtons" (didDismiss)="setOpen(false)" swipeGesture="vertical" [ngClass]="message?.type">
+</ion-toast>

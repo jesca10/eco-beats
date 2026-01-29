@@ -1,23 +1,23 @@
 <ion-content class="profile" [fullscreen]="true">
   <div class="profile-header">
     <div class="avatar-wrapper">
-      <img [src]="user.avatar" alt="Avatar" />
+      <img [src]="user.image || 'assets/imgs/default-avatar.png'" alt="Avatar" />
     </div>
-    <h2>{{ user.name }}</h2>
+    <h2>{{ user.name }} {{ user.last_name }}</h2>
     <p>{{ user.email }}</p>
   </div>
 
   <div class="profile-stats">
     <div>
-      <strong>{{ user.stats.playlists }}</strong>
+      <strong>{{ user?.stats?.playlists ?? 0 }}</strong>
       <span>Playlists</span>
     </div>
     <div>
-      <strong>{{ user.stats.likes }}</strong>
+      <strong>{{ user?.favoriteTracks ?? 0 }}</strong>
       <span>Likes</span>
     </div>
     <div>
-      <strong>{{ user.stats.following }}</strong>
+      <strong>{{ user?.stats?.following ?? 0 }}</strong>
       <span>Siguiendo</span>
     </div>
   </div>

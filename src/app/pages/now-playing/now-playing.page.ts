@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { NowPlayingService } from 'src/app/services/now-playing-service';
-import { MusicService } from 'src/app/services/music-service';
-import { Subscription } from 'rxjs';
 import { PlayerModalPage } from '../player-modal/player-modal.page';
+import { StorageService } from 'src/app/services/storage-service';
+import { FavoritesService } from 'src/app/services/favorites-service';
 
 @Component({
   selector: 'app-now-playing',
@@ -31,79 +31,34 @@ export class NowPlayingPage {
   ];
   isToastOpen: boolean = false;
   message: any;
-  favorites: any[] = [];
-  currentUserId: number = 1;
-  currentTrackId: number | null = null;
-
-  private trackSub!: Subscription;
+  currentUserId: number = 0;
 
   constructor(
     private nowPlayingService: NowPlayingService,
-    private musicService: MusicService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private storageService: StorageService,
+    private favoritesService: FavoritesService
   ) { }
 
   async ngOnInit() {
-    await this.loadFavorites();
-
-    this.trackSub = this.currentTrack$.subscribe(track => {
-      this.currentTrackId = track?.id ?? null;
-    });
+    await this.loadUserProfile();
+    await this.favoritesService.loadFavorites(this.currentUserId);
   }
 
-  ngOnDestroy() {
-    if (this.trackSub) this.trackSub.unsubscribe();
-  }
-
-  async loadFavorites() {
-    const response = await this.musicService.getFavoriteTracks();
-    this.favorites = response.filter((fav: any) => fav.user_id = this.currentUserId) ?? [];
+  async loadUserProfile() {
+    const user = await this.storageService.get('user');
+    this.currentUserId = user.id || 0;
   }
 
   async toggleFavorite(event: any, track: any) {
     event.stopPropagation();
-
-    try {
-      const favorite = this.favorites.find(fav => fav.track_id === track.id);
-      let res;
-
-      if (favorite) {
-        res = await this.musicService.deleteFavoriteTracks(favorite.id);
-
-        this.message = {
-          type: 'success',
-          text: 'Eliminado de las canciones que me gustan.',
-          icon: 'heart-dislike-sharp'
-        }
-      } else {
-        res = await this.musicService.addFavoriteTracks({
-          favorite_track: {
-            user_id: this.currentUserId,
-            track_id: track.id
-          }
-        });
-
-        this.message = {
-          type: 'success',
-          text: 'Añadido a canciones que me gustan.',
-          icon: 'heart-sharp'
-        }
-      }
-
-      await this.loadFavorites();
-    } catch (err) {
-      this.message = {
-        type: 'error',
-        text: 'Ocurrió un error al actualizar favoritos.',
-        icon: 'alert-circle-sharp'
-      }
-    } finally {
-      this.setOpen(true);
-    }
+    const { message } = await this.favoritesService.toggleFavorite(track, this.currentUserId);
+    this.message = message;
+    this.setOpen(true);
   }
 
   isFavorite(track: any): boolean {
-    return this.favorites.some(fav => fav.track_id === track.id);
+    return this.favoritesService.isFavorite(track.id);
   }
 
   togglePlayPause(event: any) {
@@ -118,9 +73,14 @@ export class NowPlayingPage {
   async openPlayerModal() {
     const modal = await this.modalCtrl.create({
       component: PlayerModalPage,
-      cssClass: 'player-modal'
+      canDismiss: true,
+      showBackdrop: true,
+      backdropDismiss: true,
+      handle: false,
+      breakpoints: [0, 1],
+      initialBreakpoint: 1
     });
 
-    modal.present();
+    await modal.present();
   }
 }

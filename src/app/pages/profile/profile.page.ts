@@ -5,6 +5,7 @@ import { IonicModule, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { StorageService } from 'src/app/services/storage-service';
 import { ThemeService } from 'src/app/services/theme-service';
+import { MusicService } from 'src/app/services/music-service';
 
 @Component({
   selector: 'app-profile',
@@ -15,16 +16,7 @@ import { ThemeService } from 'src/app/services/theme-service';
 })
 export class ProfilePage {
 
-  user = {
-    name: 'Jarol Escalante',
-    email: 'jarol@gmail.com',
-    avatar: 'assets/icon/logo.png',
-    stats: {
-      playlists: 12,
-      likes: 234,
-      following: 58
-    }
-  };
+  user: any = {}
 
   options = [
     { icon: 'person-circle', label: 'Editar perfil', action: 'edit' },
@@ -37,8 +29,27 @@ export class ProfilePage {
     private router: Router,
     private storageService: StorageService,
     private alertCtrl: AlertController,
-    private themeService: ThemeService
+    private themeService: ThemeService,
+    private musicService: MusicService
   ) { }
+
+  async ngOnInit() {
+    await this.loadUserProfile();
+    this.favoriteTracks();
+  }
+
+  async loadUserProfile() {
+    this.user = await this.storageService.get('user');
+  }
+
+  favoriteTracks() {
+    this.musicService.getFavTracksByUser(this.user.id).then(tracks => {
+      this.user.favoriteTracks = tracks.length;
+    }).catch(error => {
+      console.error('Error fetching favorite tracks:', error);
+      this.user.favoriteTracks = [];
+    });
+  }
 
   navigateTo(option: string) {
     switch (option) {
@@ -96,6 +107,7 @@ export class ProfilePage {
 
   logout() {
     this.storageService.remove('loggedIn');
+    this.storageService.remove('user');
     this.router.navigateByUrl('/login');
   }
 }

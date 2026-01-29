@@ -19,6 +19,9 @@
     --eco-claro-texto-secundario: #4B5A6A;
     --eco-neon-light: #0097A7;
     --eco-primario-light: #00695C;
+
+    --eco-oscuro: #1B2735;
+    --eco-claro: #F0F8FF;
 }
 
 body.theme-dark {
@@ -38,6 +41,7 @@ body.theme-dark {
     --eco-primario-glow-1: #00BFA666;
     --eco-primario-glow-2: #00BFA64D;
     --eco-bg-app-shadow: #0F1C2E80;
+    --eco-oscuro: #1B2735;
 }
 
 body.theme-light {
@@ -57,4 +61,5 @@ body.theme-light {
     --eco-primario-glow-1: #00695C66;
     --eco-primario-glow-2: #00695C4D;
     --eco-bg-app-shadow: #F0F8FF80;
+    --eco-oscuro: #E0F0FF;
 }

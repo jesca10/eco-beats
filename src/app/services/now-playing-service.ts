@@ -59,14 +59,20 @@ export class NowPlayingService {
 
     this.audio.ontimeupdate = () => {
       const progress = this.audio.currentTime / this.audio.duration;
-      this.progressSubject.next(progress);
+      const updatedTrack = { ...track, currentTime: this.audio.currentTime };
 
-      this.storageService.set('currentTrack', { ...track, currentTime: this.audio.currentTime })
+      this.progressSubject.next(progress);
+      this.storageService.set('currentTrack', updatedTrack);
+      this.currentTrackSubject.next(updatedTrack);
     };
 
     this.audio.onended = () => {
+      const updatedTrack = { ...track, currentTime: 0 };
+
       this.isPlayingSubject.next(false);
       this.progressSubject.next(0);
+      this.currentTrackSubject.next(updatedTrack);
+      this.storageService.set('currentTrack', updatedTrack);
     };
   }
 

@@ -65,11 +65,10 @@ export class HomePage {
     this.loadAlbums();
     this.loadArtists();
     this.getLocalArtists();
-    await this.nowPlayingService.initialize();
     await this.loadStorageData();
   }
 
-  async loadTracks() {
+  loadTracks() {
     this.isLoadingTracks = true;
 
     this.musicService.getTracks().then(tracks => {
@@ -83,10 +82,13 @@ export class HomePage {
       });
 
       this.isLoadingTracks = false;
+    }).catch(_ => {
+      this.isLoadingTracks = false;
+      this.tracks = [];
     });
   }
 
-  async loadAlbums() {
+  loadAlbums() {
     this.isLoadingAlbums = true;
 
     this.musicService.getAlbums().then(albums => {
@@ -95,20 +97,28 @@ export class HomePage {
       this.albums.forEach(album => {
         this.musicService.getArtist(album.artist_id).then(artist => {
           album.artist = artist.name;
-        });
+        }).catch(_ => {
+          album.artist = 'Desconocido';
+        });;
       });
 
       this.isLoadingAlbums = false;
+    }).catch(_ => {
+      this.isLoadingAlbums = false;
+      this.albums = [];
     });
   }
 
   // * [Tarea]: Crear servicio para obtener artistas desde el servicio API. ✅
-  async loadArtists() {
+  loadArtists() {
     this.isLoadingArtists = true;
 
     this.musicService.getArtists().then(artists => {
       this.isLoadingArtists = false;
       this.artists = artists;
+    }).catch(_ => {
+      this.isLoadingArtists = false;
+      this.artists = [];
     });
   }
 
@@ -147,7 +157,7 @@ export class HomePage {
     console.log('Datos simulados:', data);
   }
 
-  async obtenerDatosSimulados() {
+  obtenerDatosSimulados() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(['🎧 Hip-Hop', '🎸 Rock', '🎤 Rap']);

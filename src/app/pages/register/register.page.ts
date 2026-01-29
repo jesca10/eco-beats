@@ -85,15 +85,25 @@ export class RegisterPage {
   }
 
   async registerUser(formData: any) {
-    this.authService.registerUser(formData).then((res: any) => {
-      this.message = { type: 'success', text: res, icon: 'checkbox-sharp' };
+    const params = {
+      user: {
+        email: formData.email,
+        password: formData.password,
+        password_confirmation: formData.password,
+        name: formData.name,
+        last_name: formData.lastName
+      }
+    }
+
+    this.authService.registerUser(params).then((res: any) => {
+      this.message = { type: 'success', text: res.msg, icon: 'checkbox-sharp' };
       this.setOpen(true);
       setTimeout(() => {
         this.navCtrl.navigateBack('/login');
         this.registerForm.reset();
       }, 1000);
     }).catch(err => {
-      this.message = { type: 'error', text: err, icon: 'alert-circle-sharp' };
+      this.message = { type: 'error', text: err.message, icon: 'alert-circle-sharp' };
       this.setOpen(true);
     });
   }

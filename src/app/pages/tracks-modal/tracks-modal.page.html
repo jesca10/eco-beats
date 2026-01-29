@@ -15,13 +15,13 @@
   @if (info.image) {
   <img [src]="info.image" [alt]="info.name" class="main-image" [style.width]="imageWidth"
     [style.opacity]="imgNameOpacity"
-    (error)="info.type === 'album' ? $event.target.src='assets/icon/default-track.png' : $event.target.src='assets/icon/default-artist.png'" />
+    (error)="info.type === 'album' ? $event.target.src='assets/imgs/default-track.png' : $event.target.src='assets/imgs/default-artist.png'" />
   }@else{
   @if(info.type === 'album'){
-  <img src="assets/icon/default-track.png" alt="Imagen por defecto" class="main-image" height="150px"
+  <img src="assets/imgs/default-track.png" alt="Imagen por defecto" class="main-image" height="150px"
     [style.width]="imageWidth" [style.opacity]="imgNameOpacity" />
   }@else {
-  <img src="assets/icon/default-artist.png" alt="Imagen por defecto" class="main-image" height="150px"
+  <img src="assets/imgs/default-artist.png" alt="Imagen por defecto" class="main-image" height="150px"
     [style.width]="imageWidth" [style.opacity]="imgNameOpacity" />
   }
   }
@@ -33,7 +33,7 @@
     <div class="album-meta">
       <ion-avatar slot="start">
         @if(info.image_artist){
-        <img [src]="info.image_artist" alt="Artista" (error)="$event.target.src='assets/icon/default-artist.png'" />
+        <img [src]="info.image_artist" alt="Artista" (error)="$event.target.src='assets/imgs/default-artist.png'" />
         }@else {
         <img [src]="info.image_artist" alt="Artista" />
         }

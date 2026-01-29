@@ -3,17 +3,14 @@
   <ion-grid class="now-playing-container" (click)="openPlayerModal()">
     <ion-row>
       <ion-col size="2">
-        @if (track.image) {
-        <img [src]="track.image" class="track-image" (error)="$event.target.src='assets/icon/default-track.png'" />
-        }@else {
-        <img src="assets/icon/default-track.png" alt="Imagen por defecto" class="track-image" />
-        }
+        <img [src]="track.image || 'assets/imgs/default-track.png'" class="track-image"
+          (error)="$event.target.src='assets/imgs/default-track.png'" />
       </ion-col>
       <ion-col size="8" class="track-info">
         <div class="title">{{ track.name }}</div>
         <div class="artist">{{ track.artist }}</div>
       </ion-col>
-      <!-- * [Tarea]: Dar funcionalidad a favorito y quitar favorito.  -->
+      <!-- * [Tarea]: Dar funcionalidad a favorito y quitar favorito. ✅ -->
       <ion-col size="1" class="controls">
         <ion-button fill="clear" size="small" (click)="toggleFavorite($event, track)">
           <ion-icon [name]="isFavorite(track) ? 'heart-sharp' : 'heart-outline'" slot="icon-only">

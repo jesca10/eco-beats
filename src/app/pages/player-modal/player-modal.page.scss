@@ -10,8 +10,9 @@
         height: 100%;
         background-size: cover;
         background-position: center;
-        filter: blur(40px) brightness(0.5);
+        filter: blur(40px) brightness(0.45) saturate(1.2);
         z-index: 0;
+        transition: filter 0.3s ease;
     }
 
     .player-container {
@@ -20,49 +21,166 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 2rem;
+        padding: 2rem 1rem;
         text-align: center;
         color: var(--eco-texto-principal);
 
-        .cover img {
-            width: 80%;
+        .cover {
+            width: 60%;
             max-width: 300px;
             border-radius: 1.5rem;
-            box-shadow: 0 10px 30px #00000080;
             margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow:
+                0 12px 30px var(--eco-bg-app-shadow),
+                0 0 20px var(--eco-neon-glow-2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 1.5rem;
+                filter: saturate(1.1) contrast(1.05);
+                transition: transform 0.3s ease;
+            }
+
+            &:hover img {
+                transform: scale(1.02);
+            }
         }
 
         .info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-bottom: 1.5rem;
+            position: relative;
 
-            h2 {
-                font-size: 1.5rem;
-                margin: 0.5rem 0;
+            .text {
+                h2.track-title {
+                    font-size: 1.6rem;
+                    font-weight: 600;
+                    margin: 0.5rem 0;
+                    color: var(--eco-texto-principal);
+                    text-shadow: 0 0 6px var(--eco-neon-glow-1);
+                    overflow-wrap: break-word;
+                }
+
+                p.track-artist {
+                    font-size: 1rem;
+                    color: var(--eco-texto-secundario);
+                    opacity: 0.85;
+                }
             }
 
-            p {
-                font-size: 1rem;
-                opacity: 0.8;
+            .status-icon {
+                font-size: 1.8rem;
+                color: var(--eco-neon);
+                margin-top: 0.6rem;
+                transition: transform 0.2s ease, filter 0.2s ease;
+                cursor: pointer;
+                filter: drop-shadow(0 0 6px var(--eco-neon-glow-1));
+
+                &:hover {
+                    transform: scale(1.2);
+                    filter: drop-shadow(0 0 12px var(--eco-neon-glow-2));
+                }
             }
         }
 
-        ion-range {
+        .progress {
             width: 100%;
-            --bar-background: var(--eco-bg-app);
-            --bar-background-active: var(--eco-bg-app);
-            --knob-background: var(--eco-bg-app);
             margin-bottom: 2rem;
+
+            .time {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.8rem;
+                color: var(--eco-texto-secundario);
+                margin-bottom: 6px;
+            }
+
+            ion-range {
+                --bar-background: rgba(255, 255, 255, 0.1);
+                --bar-background-active: var(--eco-neon);
+                --knob-background: var(--eco-neon);
+                height: 4px;
+                border-radius: 999px;
+                box-shadow: 0 0 8px var(--eco-neon-glow-1);
+            }
         }
 
-        .controls ion-button {
-            --color: white;
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+
+            ion-icon {
+                font-size: 1.6rem;
+                color: var(--eco-neon);
+                transition: transform 0.2s ease, filter 0.2s ease;
+                cursor: pointer;
+                filter: drop-shadow(0 0 6px var(--eco-neon-glow-1));
+
+                &:hover {
+                    transform: scale(1.2);
+                    filter: drop-shadow(0 0 12px var(--eco-neon-glow-2));
+                }
+            }
+
+            .play-button {
+                ion-icon {
+                    font-size: 3rem;
+                    color: var(--eco-neon);
+                    filter: drop-shadow(0 0 12px var(--eco-neon-glow-1));
+                    transition: transform 0.2s ease, filter 0.2s ease;
+                }
+
+                &:hover ion-icon {
+                    transform: scale(1.15);
+                    filter: drop-shadow(0 0 20px var(--eco-neon-glow-2));
+                }
+            }
+        }
+    }
+
+    .toolbar {
+        position: relative;
+        width: 100%;
+        --background: transparent;
+        color: var(--eco-texto-principal);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        ion-title {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+
+            .subtitle {
+                font-size: 0.75rem;
+                color: var(--eco-texto-secundario);
+            }
+
+            .playlist-name {
+                font-size: 1rem;
+                font-weight: 600;
+                color: var(--eco-texto-principal);
+            }
         }
 
-        .close-button {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            --color: white;
+        ion-buttons ion-button ion-icon {
+            font-size: 1.5rem;
+            color: var(--eco-neon);
+            filter: drop-shadow(0 0 6px var(--eco-neon-glow-1));
+            transition: transform 0.2s ease;
+        }
+
+        ion-buttons ion-button:hover ion-icon {
+            transform: scale(1.2);
         }
     }
 }

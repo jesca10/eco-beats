@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { IonicModule, NavController } from '@ionic/angular';
 import { AuthService } from '../../services/auth-service';
+import { StorageService } from 'src/app/services/storage-service';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,12 @@ export class LoginPage {
     ]
   }
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private navCtrl: NavController) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private navCtrl: NavController,
+    private storageService: StorageService
+  ) {
     this.loginForm = this.formBuilder.group({
       email: new FormControl('',
         Validators.compose([
@@ -70,11 +76,21 @@ export class LoginPage {
   }
 
   loginUser(credentials: any) {
-    this.authService.loginUser(credentials).then(res => {
+    const params = {
+      user: {
+        email: credentials.email,
+        password: credentials.password,
+      }
+    }
+
+    this.authService.loginUser(params).then(res => {
+      this.storageService.set('loggedIn', true);
+      this.storageService.set('user', res.user);
       this.navCtrl.navigateForward('/menu/home');
       this.loginForm.reset();
     }).catch(err => {
-      this.message = { type: 'error', text: err, icon: 'alert-circle-sharp' };
+      console.error('Login failed:', err);
+      this.message = { type: 'error', text: err.message, icon: 'alert-circle-sharp' };
       this.setOpen(true);
     });
   }

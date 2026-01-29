@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from "@ionic/angular";
-import { NowPlayingPage } from '../now-playing/now-playing.page';
+import { NowPlayingPage } from "../now-playing/now-playing.page";
+import { NowPlayingService } from 'src/app/services/now-playing-service';
 
 @Component({
   selector: 'app-menu',
@@ -13,5 +14,9 @@ import { NowPlayingPage } from '../now-playing/now-playing.page';
 })
 export class MenuPage {
 
-  constructor() { }
+  constructor(private nowPlayingService: NowPlayingService) { }
+
+  async ngOnInit() {
+    await this.nowPlayingService.initialize();
+  }
 }
